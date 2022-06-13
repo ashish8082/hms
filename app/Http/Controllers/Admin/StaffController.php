@@ -66,7 +66,7 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        $data = Room::with('roomtype')->find($id);
+        $data = Staff::find($id);
         return view('admin.staff.show')->with(compact('data'));
     
       
@@ -80,9 +80,10 @@ class StaffController extends Controller
      */
     public function edit($id)
     {
-        $roomType = RoomType::all();
-        $data = Room::with('roomtype')->find($id);
-        return view('admin.staff.edit')->with(compact('data','roomType'));
+        $department = StaffDepartment::all();
+
+        $data = Staff::find($id);
+        return view('admin.staff.edit')->with(compact('data','department'));
     
     }
 
@@ -95,9 +96,24 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Room::find($id);
-        $data->room_type_id =$request->roomtype;
-        $data->title = $request->detail;
+        $data = Staff::find($id);
+        $data->full_name =$request->full_name;
+        $data->department_id =$request->department_id;
+        $data->bio =$request->bio;
+        $data->salary_type =$request->salary_type;
+        $data->salary_amt =$request->salary_amount;
+        if ($request->hasFile('photo'))
+        {
+           $image = $request->file('photo');
+           $name = time().'.'.$image->getClientOriginalExtension();
+           $destinationPath = public_path('/images');
+           $image->move($destinationPath, $name);
+          $data->photo = $name;
+       }
+       else 
+       {
+        $data->photo =$request->prev_photo;
+       }
         $data->save();
         return  redirect('admin/staff/'.$id.'/edit')->with('success','Data has been Updated');
   
@@ -111,8 +127,8 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        Room::where('id',$id)->delete();
-        return redirect('admin/rooms')->with('success','Data has been Deleted');
+        Staff::where('id',$id)->delete();
+        return redirect('admin/staff')->with('success','Data has been Deleted');
       
     }
 }

@@ -7,8 +7,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Rooms</h6>
-            <a href="{{url('admin/rooms/create')}}"class="btn btn-success btn-sm float-right">Add New</a>
+            <h6 class="m-0 font-weight-bold text-primary">Staff</h6>
+            <a href="{{url('admin/staff/create')}}"class="btn btn-success btn-sm float-right">Add New</a>
         </div>
         <div class="card-body">
             @if(Session::has('success'))
@@ -17,25 +17,33 @@
             @endif
             <div class="table-responsive">
                 <table class="table table-bordered" id="room" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>RoomType</th>
-                            <th>title</th>
-                        </tr>
-                    </thead>
+                   
                    
                     <tbody>
                         @if(isset($data) && $data!="")
+
                         <tr>
+                            <th>#</th>
                             <td>
                                 {{$data->id}}
-                            </td>
-                            <td>{{$data->roomtype->title}}</td>
-                            <td>{{$data->title}}</td>
-                          
-                        </tr>    
-                       
+                               </td>
+                        </tr>
+                        <tr>
+                            <th>Full Name</th>
+                            <td>{{$data->full_name}}</td>
+                               
+                        </tr>
+                        <tr>
+                            <th>Photo</th>
+                            <td> <img src="{{url('images/'.$data->photo)}}" alt="" width="100" height="100"></td>
+                              
+                        </tr>
+                        <tr>
+                            <th>Department</th>
+                            <td>{{$data->department->title}}</td>
+                           
+                         </tr>
+
                         @endif
                    </tbody>
                 </table>

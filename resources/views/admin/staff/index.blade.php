@@ -7,8 +7,8 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Rooms</h6>
-            <a href="{{url('admin/rooms/create')}}"class="btn btn-success btn-sm float-right">Add New</a>
+            <h6 class="m-0 font-weight-bold text-primary">Staff</h6>
+            <a href="{{url('admin/staff/create')}}"class="btn btn-success btn-sm float-right">Add New</a>
         </div>
         <div class="card-body">
             @if(Session::has('success'))
@@ -20,8 +20,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>RoomType</th>
-                            <th>title</th>
+                            <th>Full Name</th>
+                            <th>Photo</th>
+                            <th>Department</th>
                            <th>Action</th>
                         </tr>
                     </thead>
@@ -33,12 +34,13 @@
                             <td>
                              {{$d->id}}
                             </td>
-                            <td>{{$d->roomtype->title}}</td>
-                            <td>{{$d->title}}</td>
+                            <td>{{$d->full_name}}</td>
+                            <td>{{$d->department->title}}</td>
+                            <td> <img src="{{url('images/'.$d->photo)}}" alt="" width="100" height="100"></td>
                             <td>
-                                <a href="{{url('admin/rooms/'.$d->id)}}" class="btn btn-info btn-sm"> <i class="fa fa-eye"></i></a>
-                                <a href="{{url('admin/rooms/'.$d->id.'/edit')}}" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i></a>
-                                <a onclick="return confirm('Are you sure to delete this data ?')" href="{{url('admin/rooms/'.$d->id.'/delete')}}" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></a>
+                                <a href="{{url('admin/staff/'.$d->id)}}" class="btn btn-info btn-sm"> <i class="fa fa-eye"></i></a>
+                                <a href="{{url('admin/staff/'.$d->id.'/edit')}}" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i></a>
+                                <a onclick="return confirm('Are you sure to delete this data ?')" href="{{url('admin/staff/'.$d->id.'/delete')}}" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></a>
                             </td>
                         </tr>    
                         @endforeach
