@@ -55,7 +55,11 @@ Route::group(['middleware'=>['admin']],function () {
         
         //staff 
         //Staff Department Controller
+        Route::get('admin/staff/payment/{id}/add',[StaffController::class,'add_payment']);
+        Route::post('admin/staff/payment/{id}',[StaffController::class,'save_payment']);
+       
         Route::get('admin/staff/{id}/delete',[StaffController::class,'destroy']);
+       
         Route::resource('admin/staff',StaffController::class);
         
 
